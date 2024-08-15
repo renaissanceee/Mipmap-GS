@@ -1,4 +1,5 @@
 # Mipmap-GS
+<a href="https://arxiv.org/abs/2408.06286">arXiv</a> | <a href="https://github.com/renaissanceee/Mipmap-GS">Project Page</a>
 ## Abstract
 ```
 3D Gaussian Splatting (3DGS) has gained great attention in novel view synthesis (NVS) due to its superior rendering efficiency and high fidelity. However, the trained Gaussians suffer from severe zooming degradation due to non-adjustable representation derived from single-scale training. Though some methods attempt to tackle this problem via post-processing techniques such as selective rendering or filtering technique towards primitives, the specific-scale information is not involved in Gaussians. 
