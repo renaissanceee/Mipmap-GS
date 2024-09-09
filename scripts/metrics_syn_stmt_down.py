@@ -9,7 +9,7 @@ scenes = ["ship", "drums", "ficus", "hotdog", "lego", "materials", "mic", "chair
 
 factors = [1] * len(scenes)
 
-output_dir = "/cluster/scratch/jiezcao/jiameng/3dgs/benchmark_nerf_synthetic_stmt"
+output_dir = "benchmark_nerf_synthetic_stmt_down"
 
 dry_run = False
 
@@ -17,7 +17,7 @@ jobs = list(zip(scenes, factors))
 
 
 def train_scene(gpu, scene, factor):
-    for scale in [4, 2, 1]:
+    for scale in [8, 4, 2, 1]:
         cmd = f"OMP_NUM_THREADS=4 CUDA_VISIBLE_DEVICES={gpu} python metrics.py -m {output_dir}/{scene} -r {scale}"
         print(cmd)
         if not dry_run:
