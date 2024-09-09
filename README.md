@@ -34,7 +34,7 @@ Please download and unzip nerf_synthetic.zip from the [NeRF's official Google Dr
 Please download the data from the [Mip-NeRF 360](https://jonbarron.info/mipnerf360/) and request the authors for the treehill and flowers scenes.
 
 #### SwinIR Checkpoints
-Download [SwinIR](https://github.com/JingyunLiang/SwinIR/releases) checkpoints into [here](https://github.com/renaissanceee/MipmapGS_opensource/tree/main/pseudo_GT/swinIR/model_zoo/swinir).
+Download [SwinIR](https://github.com/JingyunLiang/SwinIR/releases) checkpoints into [here](https://github.com/renaissanceee/Mipmap-GS/tree/main/pseudo_GT/swinIR/model_zoo/swinir).
 ## Pretrained 3DGS
 ```
 # single-scale training and multi-scale testing (stmt) on nerf-synthetic
