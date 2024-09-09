@@ -1,11 +1,75 @@
 # Mipmap-GS
 <a href="https://arxiv.org/abs/2408.06286">arXiv</a> | <a href="https://github.com/renaissanceee/Mipmap-GS">Project Page</a>
-## Abstract
+
+Let Gaussians Deform with Scale-specific Mipmap for Anti-aliasing Rendering.
+<p>
+    <br>
+    <img src="figures/mipmap_logo.png" width="600"/>
+    <br>
+</p>
+
+
+## Installation
+Clone the repository and create an anaconda environment using
 ```
-3D Gaussian Splatting (3DGS) has gained great attention in novel view synthesis (NVS) due to its superior rendering efficiency and high fidelity. However, the trained Gaussians suffer from severe zooming degradation due to non-adjustable representation derived from single-scale training. Though some methods attempt to tackle this problem via post-processing techniques such as selective rendering or filtering technique towards primitives, the specific-scale information is not involved in Gaussians. 
-In this paper, we propose a unified optimization method to make Gaussians adaptive for arbitrary scales by self-adjusting the primitive properties (e.g., color, shape and size) and distribution (e.g., position). Inspired by mipmap technique, we design pseudo ground-truth (pseudo-GT) for the target scale and propose a scale-aware guidance loss to introduce scale information into 3D Gaussians in a self-supervised way. Our method is a plug-in module, applicable for any 3DGS models to solve the zoom-in and zoom-out aliasing.
+git clone https://github.com/renaissanceee/Mipmap-GS.git
+cd Mipmap-GS
+
+conda create -y -n mipmap-gs python=3.8
+conda activate mipmap-gs
+
+pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 -f https://download.pytorch.org/whl/torch_stable.html
+conda install cudatoolkit-dev=11.3 -c conda-forge
+
+pip install -r requirements.txt
+
+pip install submodules/diff-gaussian-rasterization
+pip install submodules/simple-knn
+```
+## Dataset and Checkpoints
+#### Blender Dataset
+Please download and unzip nerf_synthetic.zip from the [NeRF's official Google Drive](https://drive.google.com/drive/folders/128yBriW1IG_3NJ5Rp7APSTZsJqdJdfc1).
+
+#### Mip-NeRF 360 Dataset
+Please download the data from the [Mip-NeRF 360](https://jonbarron.info/mipnerf360/) and request the authors for the treehill and flowers scenes.
+
+#### SwinIR Checkponts
+Download [SwinIR](https://github.com/JingyunLiang/SwinIR/releases) checkpoints into [here](https://github.com/renaissanceee/MipmapGS_opensource/tree/main/pseudo_GT/swinIR/model_zoo/swinir).
+## Pretrained 3DGS
+```
+# single-scale training and multi-scale testing (stmt) on nerf-synthetic
+python scripts/run_syn_stmt_up.py	 --->zoom-in
+python scripts/run_syn_stmt_down.py 	--->zoom-out
+
+# mip-nerf 360
+python scripts/run_360_stmt_up.py	  
+python scripts/run_360_stmt_down.py	 
+
+# zoom-in mipmap
+python pseudo_GT/SwinIR/run_swinir_syn.py --source "./nerf_synthetic/" --gt_root "./benchmark_nerf_synthetic_stmt_up"
+python pseudo_GT/SwinIR/run_swinir_360.py
+
+# zoom-out mipmap
+python pseudo_GT/bilinear/downsample_syn.py --source "./nerf_synthetic/" --gt_root "./benchmark_nerf_synthetic_stmt_down"
+python pseudo_GT/bilinear/downsample_360.py
 ```
 
+## Mipmap-GS
+```
+# run Mipmap-GS on nerf-synthetic 
+python scripts/ours/run_syn_stmt_up_swin.py	 --->zoom-in
+python scripts/ours/run_syn_stmt_down.py 	--->zoom-out
+
+# mip-nerf 360 
+python scripts/ours/run_360_stmt_up_swin.py	
+python scripts/ours/run_360_stmt_down.py	 
+
+# metrics
+python scripts/ours/metrics_syn_stmt_up_swin.py
+python scripts/ours/metrics_syn_stmt_down.py
+python scripts/ours/metrics_360_stmt_up_swin.py
+python scripts/ours/metrics_360_stmt_down.py
+```
 
 # Acknowledgements
 This project is built upon [3DGS](https://github.com/graphdeco-inria/gaussian-splatting) and [Mip-Splatting](https://github.com/autonomousvision/mip-splatting.git). The SR model is from [SwinIR](https://github.com/JingyunLiang/SwinIR.git).
