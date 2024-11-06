@@ -1,4 +1,4 @@
-# Mipmap-GS [3DV'25 ]
+# Mipmap-GS [3DV'25]
 <a href="https://arxiv.org/abs/2408.06286">arXiv</a> | <a href="https://github.com/renaissanceee/Mipmap-GS">Project Page</a>
 
 Let Gaussians Deform with Scale-specific Mipmap for Anti-aliasing Rendering.
